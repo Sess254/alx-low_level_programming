@@ -1,8 +1,12 @@
+/*
+ * File: 1-alphabet.c
+ * Auth: sess245
+ */
+
 #include "main.h"
+
 /**
- * main - print_alphabet - prints alphabet in lowercase followed by a new line
- *
- * Return: 0 success
+ * print_alphabet - prints the alphabet in lowercase, followed by a new line.
  */
 void print_alphabet(void)
 {
@@ -10,5 +14,6 @@ void print_alphabet(void)
 
 	for (c = 'a'; c <= 'z'; c++)
 		_putchar(c);
+
 	_putchar('\n');
 }
