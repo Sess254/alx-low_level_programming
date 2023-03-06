@@ -6,7 +6,7 @@
 #include "main.h"
 
 /**
- * _strbrk - searches a string for any set of bytes.
+ * _strpbrk - searches a string for any set of bytes.
  * @s: The string to be serched.
  * @accept: The set of bytes to be searched for.
  *
