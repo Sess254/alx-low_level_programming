@@ -7,17 +7,18 @@
 #include <stdlib.h>
 
 /**
- * string_nconcat - concantenates two strings
+ * string_nconcat - Concatenates two strings using at
+ *                  most an inputted number of bytes.
  * @s1: The first string.
  * @s2: The second string.
- * @n: The number of bytes of s2 to concantenate to s1.
+ * @n: The maximum number of bytes of s2 to concatenate to s1.
  *
- * Return: If function fails - NULL.
- * otherwise a pointer to the concantenated space in memory.
+ * Return: If the function fails - NULL.
+ * Otherwise - a pointer to the concatenated space in memory.
  */
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	char *conca;
+	char *concat;
 	unsigned int len = n, index;
 
 	if (s1 == NULL)
@@ -29,17 +30,20 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	for (index = 0; s1[index]; index++)
 		len++;
 
-	conca = malloc(sizeof(char) * (len + 1));
+	concat = malloc(sizeof(char) * (len + 1));
 
-	if (conca == NULL)
+	if (concat == NULL)
 		return (NULL);
 
 	len = 0;
 
 	for (index = 0; s1[index]; index++)
-		conca[len++] = s2[index];
+		concat[len++] = s1[index];
 
-	conca[len] = '\0';
+	for (index = 0; s2[index] && index < n; index++)
+		concat[len++] = s2[index];
 
-	return (conca);
+	concat[len] = '\0';
+
+	return (concat);
 }
