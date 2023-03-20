@@ -4,7 +4,7 @@
 /*
  *File: 3-function_like_macro.h
  *Auth: Sess254
- *Desc: header file that defines a function-like
+ *Desc: Header file that defines a function-like
  *macro ABS(x) that compiles the absolute value of a number x.
  */
 
