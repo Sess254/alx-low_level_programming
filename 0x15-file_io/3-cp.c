@@ -78,8 +78,7 @@ int main(int argc, char *argv[])
 	fr = read(from, buff, 1024);
 	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
-	while (fr > 0)
-	{
+	do {
 
 		if (from == -1 || fr == -1)
 		{
@@ -100,7 +99,8 @@ int main(int argc, char *argv[])
 
 		fr = read(from, buff, 1024);
 		to = open(argv[2], O_WRONLY | O_APPEND);
-	}
+
+	} while (fr > 0);
 
 
 	free(buff);
