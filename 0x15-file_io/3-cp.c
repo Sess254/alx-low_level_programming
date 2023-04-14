@@ -33,17 +33,17 @@ char *give_buff(char *file)
 
 /**
  *close_file - close file descriptor
- *@fd: file descriptor to be closed
+ *@file_desc: file descriptor to be closed
  */
-void close_file(int fd)
+void close_file(int file_desc)
 {
-	int fc;
+	int file_close;
 
-	fc = close(fd);
+	file_close = close(file_desc);
 
-	if (fc == -1)
+	if (file_close == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close %d\n", fd);
+		dprintf(STDERR_FILENO, "Error: Can't close %d\n", file_desc);
 		exit(100);
 	}
 }
@@ -64,7 +64,7 @@ void close_file(int fd)
 int main(int argc, char *argv[])
 {
 	char *buff;
-	int from, to, fr, fw;
+	int file_from, file_to, file_read, file_write;
 
 	if (argc != 3)
 	{
@@ -74,15 +74,13 @@ int main(int argc, char *argv[])
 	}
 
 	buff = give_buff(argv[2]);
-	from = open(argv[1], O_RDONLY);
-	fr = read(from, buff, 1024);
-	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	file_from = open(argv[1], O_RDONLY);
+	file_read = read(file_from, buff, 1024);
+	file_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
+	do {
 
-	while (fr > 0)
-	{
-
-		if (from == -1 || fr == -1)
+		if (file_from == -1 || file_read == -1)
 		{
 			dprintf(STDERR_FILENO,
 			"Error: Can't read from file %s\n", argv[1]);
@@ -90,8 +88,8 @@ int main(int argc, char *argv[])
 			exit(98);
 		}
 
-		fw = write(to, buff, fr);
-		if (to == -1 || fw == -1)
+		file_write = write(file_to, buff, file_read);
+		if (file_to == -1 || file_write == -1)
 		{
 			dprintf(STDERR_FILENO,
 			"Error: Can't write to %s\n", argv[2]);
@@ -99,16 +97,16 @@ int main(int argc, char *argv[])
 			exit(99);
 		}
 
-		fr = read(from, buff, 1024);
-		to = open(argv[2], O_WRONLY | O_APPEND);
+		file_read = read(file_from, buff, 1024);
+		file_to = open(argv[2], O_WRONLY | O_APPEND);
 
-	}
+	} while (file_read >= 0);
 
 	free(buff);
 
 
-	close_file(from);
-	close_file(to);
+	close_file(file_from);
+	close_file(file_to);
 
 	return (0);
 }
