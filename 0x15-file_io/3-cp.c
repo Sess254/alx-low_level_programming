@@ -33,17 +33,17 @@ char *give_buff(char *file)
 
 /**
  *close_file - close file descriptor
- *@file_desc: file descriptor to be closed
+ *@fd: file descriptor to be closed
  */
-void close_file(int file_desc)
+void close_file(int fd)
 {
 	int file_close;
 
-	file_close = close(file_desc);
+	file_close = close(fd);
 
 	if (file_close == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close %d\n", file_desc);
+		dprintf(STDERR_FILENO, "Error: Can't close %d\n", fd);
 		exit(100);
 	}
 }
