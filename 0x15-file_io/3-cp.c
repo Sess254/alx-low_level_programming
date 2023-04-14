@@ -7,16 +7,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char *give_buffer(char *file);
+char *give_buff(char *file);
 void close_file(int fd);
 
 /**
- * give_buffer - gives 1024  bytes for buffer
+ * give_buff - gives 1024  bytes for buffer
  *@file: name of the file
  *
  *Return: pointer to new buffer.
  */
-char *give_buffer(char *file)
+char *give_buff(char *file)
 {
 	char *buff;
 
@@ -63,8 +63,8 @@ void close_file(int fd)
 
 int main(int argc, char *argv[])
 {
-	int from, to, fr, fw;
 	char *buff;
+	int from, to, fr, fw;
 
 	if (argc != 3)
 	{
@@ -73,12 +73,14 @@ int main(int argc, char *argv[])
 		exit(97);
 	}
 
-	buff = give_buffer(argv[2]);
+	buff = give_buff(argv[2]);
 	from = open(argv[1], O_RDONLY);
 	fr = read(from, buff, 1024);
 	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
-	do {
+
+	while (fr > 0)
+	{
 
 		if (from == -1 || fr == -1)
 		{
@@ -100,10 +102,11 @@ int main(int argc, char *argv[])
 		fr = read(from, buff, 1024);
 		to = open(argv[2], O_WRONLY | O_APPEND);
 
-	} while (fr > 0);
-
+	}
 
 	free(buff);
+
+
 	close_file(from);
 	close_file(to);
 
