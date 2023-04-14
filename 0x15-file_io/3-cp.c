@@ -105,6 +105,7 @@ int main(int argc, char *argv[])
 
 	close_file(file_from);
 	close_file(file_to);
+	free(buff);
 
 	return (0);
 }
