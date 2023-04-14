@@ -100,9 +100,7 @@ int main(int argc, char *argv[])
 		file_read = read(file_from, buff, 1024);
 		file_to = open(argv[2], O_WRONLY | O_APPEND);
 
-	} while (file_read >= 0);
-
-	free(buff);
+	} while (file_read > 0);
 
 
 	close_file(file_from);
