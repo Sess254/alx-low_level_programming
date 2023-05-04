@@ -7,11 +7,12 @@
 #include <stdio.h>
 
 /**
- *binary_to_uint - converts a binary number to an unsigned int
- *@b: pointer to a string of 0 and 1 chars
+ *binary_to_uint - converts a binary number to
+ * an unsigned int.
+ *@b:a pointer to a string  of 0 an 1 chars
  *
- *Return: converted number - 0 if there's one or more chars
- * in string b thats not 0 and 1 b is null
+ *Return: converted number - 0 if theres one  or more
+ *chars in string b thats not 0 and 1 - b is NULL
  */
 
 unsigned int binary_to_uint(const char *b)
@@ -34,5 +35,3 @@ unsigned int binary_to_uint(const char *b)
 
 	return (number);
 }
-
-
