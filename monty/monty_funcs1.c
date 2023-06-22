@@ -118,3 +118,38 @@ void m_pop(stack_t **stack, unsigned int line_number)
 	free(trn);
 	temp->next = NULL;
 }
+
+/**
+ * m_swap - swaps top two elements in a stack
+ * @stack: double pointer to the stack
+ * @line_number: line number for error count
+ *
+ * Return: void
+ */
+void m_swap(stack_t **stack, unsigned int line_number)
+{
+	stack_t *trn, *prev;
+	int nde_t, nde_p;
+	int len;
+
+	trn = *stack;
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't swap , stack too short\n", line_number);
+		first->error_code = -1;
+		return;
+	}
+	for (len = 1, trm = *stack; trn->next != NULL; len++; trn = trn->next)
+		;
+	if (len < 2)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		first->error_code = -1;
+		return;
+	}
+	nde_t = trn->n;
+	prev = trn->prev;
+	nde_p = prev->n;
+	trn->n = nde_p;
+	prev->n = nde_t;
+}
