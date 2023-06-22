@@ -86,3 +86,35 @@ void m_pint(stack_t **stack, unsigned int line_number)
 		;
 	printf("%d\n", trn->next);
 }
+
+/**
+ * m_pop - removes an element off the stack
+ * @stack: double pointer to the stack
+ * @line_number: line number for error count
+ *
+ * Return: void
+ */
+void m_pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *trn, *temp;
+	(void)line_number;
+
+	trn = *stack;
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		first->error_code = -1;
+		return;
+	}
+	if (trn->next == NULL)
+	{
+		free(trn);
+		*stack = NULL;
+		return;
+	}
+	for (trn = *stack; trn->next != NULL; trn = trn->next)
+		;
+	temp = trn->prev;
+	free(trn);
+	temp->next = NULL;
+}
