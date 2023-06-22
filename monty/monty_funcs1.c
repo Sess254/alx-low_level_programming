@@ -1,22 +1,17 @@
-/*
- * File: monty_funcs1.c
- * Auth:Sess254
- */
-
 #include "monty.h"
 
 /**
- * m_push - pushes an element to the stack
- * @stack: double pointer to the stack
- * @line_number: line number for the errors
- *
+ * m_push - push element to the stack
+ * @stack: dbl ptr to a stack
+ * @line_number: ln count for error
  * Return: void
  */
+
 void m_push(stack_t **stack, unsigned int line_number)
 {
-	void(line_number);
-	stack_t *new, *temp = *stack;
+	stack_t *new, *tail = *stack;
 	int n = first->n;
+	(void) line_number;
 
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
@@ -33,48 +28,45 @@ void m_push(stack_t **stack, unsigned int line_number)
 		*stack = new;
 		return;
 	}
-	while (temp->next != NULL)
-		temp = temp->next;
+	while (tail->next != NULL)
+		tail = tail->next;
 	new->n = n;
-	temp->next = new;
-	new->prev = temp;
+	tail->next = new;
+	new->prev = tail;
 	new->next = NULL;
 }
 
 /**
- * m_pall - prints stack_t linked list
+ * m_pall - prints linked list backwards
  * @stack: double pointer to stack
- * @line_number: line number for the errors
- *
+ * @line_number: ln count for errors
  * Return: void
  */
 void m_pall(stack_t **stack, unsigned int line_number)
 {
-	int j = 0;
-	stack_t *trn;
-
-	void(line_number);
+	int i = 0;
+	stack_t *itr;
+	(void) line_number;
 
 	if (*stack == NULL)
 		return;
-	for (trn = *stack; trn->next != NULL; trn = trn->next)
-		j++;
-	j++;
-	for (; j != 0; trn = trn->next, j--)
-		printf("%d\n", trn->n);
+	for (itr = *stack; itr->next != NULL; itr = itr->next)
+		i++;
+	i++;
+	for (; i != 0; itr = itr->prev, i--)
+		printf("%d\n", itr->n);
 }
 
 /**
- * m_pint - prints value of top of stack
+ * m_pint - prints value at top of stack
  * @stack: double pointer to stack
- * @line_number: line number for error counts
- *
+ * @line_number: ln count for errors
  * Return: void
  */
 void m_pint(stack_t **stack, unsigned int line_number)
 {
-	stack_t *trn;
-	(void)line_number;
+	stack_t *itr;
+	(void) line_number;
 
 	if (*stack == NULL)
 	{
@@ -82,64 +74,63 @@ void m_pint(stack_t **stack, unsigned int line_number)
 		first->error_code = -1;
 		return;
 	}
-	for (trn = *stack; trn->next != NULL; trn = trn->next)
+	for (itr = *stack; itr->next != NULL; itr = itr->next)
 		;
-	printf("%d\n", trn->next);
+	printf("%d\n", itr->n);
 }
 
 /**
- * m_pop - removes an element off the stack
- * @stack: double pointer to the stack
- * @line_number: line number for error count
- *
+ * m_pop - removes top element
+ * @stack: double pointer to stack
+ * @line_number: ln count for errors
  * Return: void
  */
+
 void m_pop(stack_t **stack, unsigned int line_number)
 {
-	stack_t *trn, *temp;
-	(void)line_number;
+	stack_t *itr, *tmp;
 
-	trn = *stack;
+	itr = *stack;
 	if (*stack == NULL)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		first->error_code = -1;
 		return;
 	}
-	if (trn->next == NULL)
+	if (itr->next == NULL)
 	{
-		free(trn);
+		free(itr);
 		*stack = NULL;
 		return;
 	}
-	for (trn = *stack; trn->next != NULL; trn = trn->next)
+	for (itr = *stack; itr->next != NULL; itr = itr->next)
 		;
-	temp = trn->prev;
-	free(trn);
-	temp->next = NULL;
+	tmp = itr->prev;
+	free(itr);
+	tmp->next = NULL;
 }
 
 /**
- * m_swap - swaps top two elements in a stack
- * @stack: double pointer to the stack
- * @line_number: line number for error count
- *
+ * m_swap - swaps top two elements in stack
+ * @stack: double pointer to stack
+ * @line_number: ln count for errors
  * Return: void
  */
+
 void m_swap(stack_t **stack, unsigned int line_number)
 {
-	stack_t *trn, *prev;
-	int nde_t, nde_p;
+	stack_t *itr, *prev;
+	int holdt, holdp;
 	int len;
 
-	trn = *stack;
+	itr = *stack;
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't swap , stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
 		first->error_code = -1;
 		return;
 	}
-	for (len = 1, trm = *stack; trn->next != NULL; len++; trn = trn->next)
+	for (len = 1, itr = *stack; itr->next != NULL; len++, itr = itr->next)
 		;
 	if (len < 2)
 	{
@@ -147,9 +138,9 @@ void m_swap(stack_t **stack, unsigned int line_number)
 		first->error_code = -1;
 		return;
 	}
-	nde_t = trn->n;
-	prev = trn->prev;
-	nde_p = prev->n;
-	trn->n = nde_p;
-	prev->n = nde_t;
+	holdt = itr->n;
+	prev = itr->prev;
+	holdp = prev->n;
+	itr->n = holdp;
+	prev->n = holdt;
 }
