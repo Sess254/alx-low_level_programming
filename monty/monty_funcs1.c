@@ -40,3 +40,25 @@ void m_push(stack_t **stack, unsigned int line_number)
 	new->prev = temp;
 	new->next = NULL;
 }
+
+/**
+ * m_pall - prints stack_t linked list
+ * @stack: double pointer to stack
+ * @line_number: line number for the errors
+ *
+ * Return: void
+ */
+void m_pall(stack_t **stack, unsigned int line_number)
+{
+	int j = 0;
+	stack_t *trn;
+	void(line_number);
+
+	if (*stack == NULL)
+		return;
+	for (trn = *stack; trn->next != NULL; trn = trn->next)
+		j++;
+	j++;
+	for (; j != 0; trn = trn->next, j--)
+		printf("%d\n", trn->n);
+}
