@@ -10,8 +10,9 @@
  * @key: the key
  * @size: size of array
  *
- * Return index of key
- * Description: djb2 algorithm
+ * Return: index of key
+ *
+ * Description: uses djb2 algorithm
  */
 
 unsigned long int key_index(const unsigned char *key, unsigned long int size)
